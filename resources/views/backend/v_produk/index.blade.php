@@ -49,7 +49,7 @@ X.12
                                                         class="far fa-edit"></i> Ubah</button>
                                             </a>
                                             <a href="{{ route('backend.produk.show', $row->id) }}" title="Ubah Data">
-                                                <button type="button" class="btn btnwarning btn-sm"><i
+                                                <button type="button" class="btn btn-warning btn-sm"><i
                                                         class="fas fa-plus"></i> Gambar</button>
                                             </a>
 
