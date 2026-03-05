@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="public/image/icon_univ_bsi.png" alt="Logo BSI" width="120"/>
+    <img src="public/image/logo.png" alt="Logo BSI" width="120"/>
 </p>
 
 <h1 align="center">Toko Online UBSI</h1>
