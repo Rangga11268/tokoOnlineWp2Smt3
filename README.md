@@ -1,19 +1,30 @@
-## Toko Online - Studi Kasus Web Programming 2 UBSI
+<p align="center">
+    <img src="public/image/icon_univ_bsi.png" alt="Logo BSI" width="120"/>
+</p>
 
-Repository ini berisi source code studi kasus toko online sederhana untuk materi kuliah Web Programming 2 UBSI Semester 3.
+<h1 align="center">Toko Online UBSI</h1>
+<p align="center"><b>Studi Kasus Web Programming 2 - Semester 3</b></p>
+
+---
+
+Repository ini berisi source code studi kasus toko online sederhana untuk pembelajaran Web Programming 2 di Universitas Bina Sarana Informatika (UBSI).
 
 **Author:** Darell Rangga
 
-### Fitur Utama
+---
+
+### ✨ Fitur Utama
 
 - Autentikasi user (login/logout)
 - Manajemen user (admin & user biasa)
 - CRUD produk & kategori
 - DataTables untuk tabel backend
 - SweetAlert untuk konfirmasi
-- CKEditor untuk input deskripsi
+- CKEditor untuk input deskripsi produk
 
-### Tutorial Penggunaan (Untuk Pemula)
+---
+
+### 🚀 Tutorial Penggunaan (Untuk Pemula)
 
 1. **Clone Repository**
     - Download/clone project ini ke komputer kamu (bisa pakai Git atau tombol "Code" di GitHub).
@@ -59,7 +70,9 @@ Repository ini berisi source code studi kasus toko online sederhana untuk materi
         - **Email:** admin@gmail.com
         - **Password:** P@55word
 
-### Tips & Kendala Umum
+---
+
+### 💡 Tips & Kendala Umum
 
 - Jika error database, cek database sudah dibuat & setting `.env` benar
 - Jika tampilan tidak ada CSS/JS, jalankan `npm run build` atau `npm run dev`
@@ -68,4 +81,4 @@ Repository ini berisi source code studi kasus toko online sederhana untuk materi
 
 ---
 
-Proyek ini hanya untuk pembelajaran Web Programming 2 UBSI.
+> Proyek ini hanya untuk pembelajaran Web Programming 2 UBSI. Selamat belajar & semoga sukses!
