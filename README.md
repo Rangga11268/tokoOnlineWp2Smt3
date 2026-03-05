@@ -1,89 +1,71 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
 ## Toko Online - Studi Kasus Web Programming 2 UBSI
 
-This repository contains the source code for a simple online store (Toko Online) built as a case study for the Web Programming 2 course at Universitas Bina Sarana Informatika (UBSI), Semester 3.
+Repository ini berisi source code studi kasus toko online sederhana untuk materi kuliah Web Programming 2 UBSI Semester 3.
 
 **Author:** Darell Rangga
 
-### Project Overview
+### Fitur Utama
 
-This project demonstrates the implementation of a basic e-commerce backend using the Laravel PHP framework. It covers user authentication, product and category management, and basic CRUD operations. The code and structure are intended as learning material for students.
+- Autentikasi user (login/logout)
+- Manajemen user (admin & user biasa)
+- CRUD produk & kategori
+- DataTables untuk tabel backend
+- SweetAlert untuk konfirmasi
+- CKEditor untuk input deskripsi
 
-#### Features
+### Tutorial Penggunaan (Untuk Pemula)
 
-- User authentication (login/logout)
-- User management (admin & regular user roles)
-- Product and category CRUD
-- DataTables integration for backend tables
-- SweetAlert for confirmation dialogs
-- CKEditor integration for rich text editing
+1. **Clone Repository**
+    - Download/clone project ini ke komputer kamu (bisa pakai Git atau tombol "Code" di GitHub).
+    - Contoh Git:
+        ```bash
+        git clone https://github.com/username/tokoOnline.git
+        cd tokoOnline
+        ```
+2. **Install Dependency PHP**
+    - Pastikan sudah install Composer.
+    - Jalankan:
+        ```bash
+        composer install
+        ```
+3. **Install Dependency Frontend**
+    - Pastikan sudah install Node.js & npm.
+    - Jalankan:
+        ```bash
+        npm install
+        ```
+4. **Salin & Edit File .env**
+    - Salin `.env.example` ke `.env` (Windows: `copy .env.example .env`)
+    - Edit `.env` dan sesuaikan DB_DATABASE, DB_USERNAME, DB_PASSWORD
+5. **Generate Key Aplikasi**
+    - Jalankan:
+        ```bash
+        php artisan key:generate
+        ```
+6. **Migrasi & Seeder Database**
+    - Jalankan:
+        ```bash
+        php artisan migrate --seed
+        ```
+7. **Jalankan Server Lokal**
+    - Jalankan:
+        ```bash
+        php artisan serve
+        ```
+    - Akses di [http://localhost:8000](http://localhost:8000)
+8. **Login ke Backend**
+    - Buka [http://localhost:8000/backend/login](http://localhost:8000/backend/login)
+    - Login admin:
+        - **Email:** admin@gmail.com
+        - **Password:** P@55word
 
-#### How to Use
+### Tips & Kendala Umum
 
-1. Clone this repository.
-2. Run `composer install` and `npm install` to install dependencies.
-3. Copy `.env.example` to `.env` and configure your database.
-4. Run `php artisan key:generate`.
-5. Run migrations and seeders: `php artisan migrate --seed`.
-6. Start the development server: `php artisan serve`.
-
-#### Default Admin Login
-
-- **Email:** admin@gmail.com
-- **Password:** P@55word
+- Jika error database, cek database sudah dibuat & setting `.env` benar
+- Jika tampilan tidak ada CSS/JS, jalankan `npm run build` atau `npm run dev`
+- Untuk Windows, gunakan `copy .env.example .env`
+- Jika ada perubahan kode, restart server atau jalankan `php artisan cache:clear`
 
 ---
 
-This project is for educational purposes only as part of the Web Programming 2 curriculum at UBSI.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Proyek ini hanya untuk pembelajaran Web Programming 2 UBSI.
