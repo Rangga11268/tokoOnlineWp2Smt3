@@ -7,19 +7,42 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Toko Online - Studi Kasus Web Programming 2 UBSI
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This repository contains the source code for a simple online store (Toko Online) built as a case study for the Web Programming 2 course at Universitas Bina Sarana Informatika (UBSI), Semester 3.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Author:** Darell Rangga
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Project Overview
+
+This project demonstrates the implementation of a basic e-commerce backend using the Laravel PHP framework. It covers user authentication, product and category management, and basic CRUD operations. The code and structure are intended as learning material for students.
+
+#### Features
+
+- User authentication (login/logout)
+- User management (admin & regular user roles)
+- Product and category CRUD
+- DataTables integration for backend tables
+- SweetAlert for confirmation dialogs
+- CKEditor integration for rich text editing
+
+#### How to Use
+
+1. Clone this repository.
+2. Run `composer install` and `npm install` to install dependencies.
+3. Copy `.env.example` to `.env` and configure your database.
+4. Run `php artisan key:generate`.
+5. Run migrations and seeders: `php artisan migrate --seed`.
+6. Start the development server: `php artisan serve`.
+
+#### Default Admin Login
+
+- **Email:** admin@gmail.com
+- **Password:** P@55word
+
+---
+
+This project is for educational purposes only as part of the Web Programming 2 curriculum at UBSI.
 
 ## Learning Laravel
 
