@@ -514,32 +514,31 @@
                 <div id="home-slick">
                     <!-- banner -->
                     <div class="banner banner-1">
-                        <img src="{{ asset('frontend/img/banner01.jpg') }}" alt="">
+                        <img src="{{ asset('frontend/banner/banner01.jpg') }}" alt="">
                         <div class="banner-caption text-center">
-                            <h1>Bags sale</h1>
-                            <h3 class="white-color font-weak">Up to 50% Discount</h3>
-                            <button class="primary-btn">Shop Now</button>
+                            <h1>Jajanan Tradisional</h1>
+                            <h3 class="font-weak" style="color: 30323a;">Khas Makanan
+                                Indonesia</h3>
+                            <button class="primary-btn">Pesan Sekarang</button>
                         </div>
                     </div>
                     <!-- /banner -->
-
                     <!-- banner -->
                     <div class="banner banner-1">
-                        <img src="{{ asset('frontend/img/banner02.jpg') }}" alt="">
+                        <img src="{{ asset('frontend/banner/banner02.jpg') }}" alt="">
                         <div class="banner-caption">
-                            <h1 class="primary-color">HOT DEAL<br><span class="white-color font-weak">Up to 50%
-                                    OFF</span></h1>
-                            <button class="primary-btn">Shop Now</button>
+                            <h1 class="primary-color">Khas Makanan Indonesia<br><span
+                                    class="white-color font-weak">Jajanan Tradisional</span></h1>
+                            <button class="primary-btn">Pesan Sekarang</button>
                         </div>
                     </div>
                     <!-- /banner -->
-
                     <!-- banner -->
                     <div class="banner banner-1">
-                        <img src="{{ asset('frontend/img/banner03.jpg') }}" alt="">
+                        <img src="{{ asset('frontend/banner/banner03.jpg') }}" alt="">
                         <div class="banner-caption">
-                            <h1 class="white-color">New Product <span>Collection</span></h1>
-                            <button class="primary-btn">Shop Now</button>
+                            <h1 style="color: f8694a;">Khas Makanan <span>Indonesia</span></h1>
+                            <button class="primary-btn">Pesan Sekarang</button>
                         </div>
                     </div>
                     <!-- /banner -->
