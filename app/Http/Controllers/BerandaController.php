@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Models\FotoProduk;
+use App\Models\Kategori;
 use App\Models\Produk;
-use Illuminate\Http\Request;
 
 class BerandaController extends Controller
 {
@@ -16,10 +18,10 @@ class BerandaController extends Controller
 
     public function index()
     {
-        $porduk =Produk::where('status', 1)->orderBy('created_at', 'desc')->paginate(6);
+        $produk = Produk::where('status', 1)->orderBy('created_at', 'desc')->paginate(6);
         return view('v_beranda.index', [
             'judul' => 'Halaman Beranda',
-            'produk' => $porduk
+            'produk' => $produk
         ]);
     }
-}
+};

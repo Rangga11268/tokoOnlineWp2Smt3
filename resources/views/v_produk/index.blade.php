@@ -1,5 +1,6 @@
 @extends('v_layouts.app')
 @section('content')
+    <!-- template -->
     <!-- STORE -->
     <div id="store">
         <!-- row -->
@@ -13,9 +14,8 @@
                                 <span>Kategori</span>
                                 <span class="sale">{{ $row->kategori->nama_kategori }}</span>
                             </div>
-                            <a href=" {{ route('produk.detail', $row->id) }}">
-                                <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Detail
-                                    Product</button>
+                            <a href="{{ route('produk.detail', $row->id) }}">
+                                <button class="main-btn quick-view"><i class="fa fa-searchplus"></i> Detail Produk</button>
                             </a>
                             <img src="{{ asset('storage/img-produk/thumb_md_' . $row->foto) }}" alt="">
                         </div>
@@ -24,7 +24,7 @@
                                     class="product-old-price">{{ $row->kategori->nama_kategori }}</span></h3>
                             <h2 class="product-name"><a href="#">{{ $row->nama_produk }}</a></h2>
                             <div class="product-btns">
-                                <a href=" {{ route('produk.detail', $row->id) }}" title="Detail Produk">
+                                <a href="{{ route('produk.detail', $row->id) }}" title="DetailProduk">
                                     <button class="main-btn icon-btn"><i class="fa fa-searchplus"></i></button>
                                 </a>
                                 <form action="3" method="post" style="display: inline-block;"
@@ -41,7 +41,13 @@
             @endforeach
             <div class="clearfix visible-md visible-lg visible-sm visible-xs"></div>
         </div>
+        <div class="store-filter clearfix">
+            <div class="pagination">
+                {{ $produk->links('vendor.pagination.custom') }}
+            </div>
+        </div>
         <!-- /row -->
     </div>
     <!-- /STORE -->
+    <!-- end template-->
 @endsection
