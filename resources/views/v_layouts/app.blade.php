@@ -42,13 +42,13 @@
     <!-- HEADER -->
     <header>
         <!-- top Header -->
-        <div id="top-header">
+        {{-- <div id="top-header">
             <div class="container">
                 <div class="pull-left">
                     <span>Selamat datang di toko online</span>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- /top Header -->
 
         <!-- header -->
@@ -152,8 +152,8 @@
                     <ul class="menu-list">
                         <li><a href="{{ route('beranda') }}">Beranda</a></li>
                         <li><a href="{{ route('produk.all') }}">Produk</a></li>
-                        <li><a href="#">Lokasi</a></li>
-                        <li><a href="#">Hubungi Kami</a></li>
+                        <li><a href="https://maps.app.goo.gl/x1dKX6nD86GTAQ1d6" target="_blank">Lokasi</a></li>
+                        <li><a href="https://wa.me/628978638973" target="_blank">Hubungi Kami</a></li>
                     </ul>
                 </div>
                 <!-- menu nav -->
@@ -280,9 +280,7 @@
                 <div id="main" class="col-md-9">
                     <!-- store top filter -->
                     <!-- /store top filter -->
-
                     @yield('content')
-
                     <!-- store bottom filter -->
 
                     <!-- /store bottom filter -->
