@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
+    public function index()
+    {
+        $customer = Customer::orderBy('id', 'desc')->get();
+        return view('backend.v_customer.index', [
+            'judul' => 'Customer',
+            'sub' => 'Halaman Customer',
+            'index' => $customer
+        ]);
+    }
+
     // Redirect ke Google
     public function redirect()
     {
@@ -32,11 +42,12 @@ class CustomerController extends Controller
                     'role' => '2', // Role customer
                     'status' => 1, // Status aktif
                     'password' => Hash::make('default_password'), // Password default
+                    'hp' => '0000000000',
                 ]);
                 // Buat data customer
                 Customer::create([
                     'user_id' => $user->id,
-                    'google_id' => $socialUser->id,
+                    'google_id' => $socialUser->getId(),
                     'google_token' => $socialUser->token
                 ]);
                 // Login pengguna baru
