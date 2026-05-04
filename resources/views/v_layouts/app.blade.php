@@ -90,7 +90,7 @@
                                             class="fa fa-caret-down"></i></strong>
                                 </div>
                                 <ul class="custom-menu">
-                                    <li><a href="#"><i class="fa fa-user-o"></i> Akun Saya</a></li>
+                                    <li><a href="{{ route('customer.akun', ['id' => Auth::user()->id]) }}"><i class="fa fa-user-o"></i> Akun Saya</a></li>
                                     <li><a href="#"><i class="fa fa-check"></i> History</a></li>
                                     <li>
                                         <a href="#"

@@ -19,53 +19,104 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('beranda');
+Route::get("/", function () {
+    return redirect()->route("beranda");
 });
 
+Route::get("backend/beranda", [
+    BerandaController::class,
+    "berandaBackend",
+])->name("backend.beranda");
 
-Route::get('backend/beranda', [BerandaController::class, 'berandaBackend'])
-    ->name('backend.beranda');
-
-Route::get('backend/login', [LoginController::class, 'loginBackend'])
-    ->name('backend.login');
-Route::post('backend/login', [LoginController::class, 'authenticateBackend'])
-    ->name('backend.login');
-Route::post('backend/logout', [LoginController::class, 'logoutBackend'])
-    ->name('backend.logout');
+Route::get("backend/login", [LoginController::class, "loginBackend"])->name(
+    "backend.login",
+);
+Route::post("backend/login", [
+    LoginController::class,
+    "authenticateBackend",
+])->name("backend.login");
+Route::post("backend/logout", [LoginController::class, "logoutBackend"])->name(
+    "backend.logout",
+);
 
 // Route untuk Customer
-Route::resource('backend/customer', CustomerController::class, ['as' => 'backend'])->middleware('auth');
+Route::resource("backend/customer", CustomerController::class, [
+    "as" => "backend",
+])->middleware("auth");
 
-// Route::resource('backend/user', UserController::class)->middleware('auth'); 
-Route::resource('backend/user', UserController::class, ['as' => 'backend'])
-    ->middleware('auth');
-Route::resource('backend/kategori', KategoriController::class, ['as' => 'backend'])->middleware('auth');
+// Route::resource('backend/user', UserController::class)->middleware('auth');
+Route::resource("backend/user", UserController::class, [
+    "as" => "backend",
+])->middleware("auth");
+Route::resource("backend/kategori", KategoriController::class, [
+    "as" => "backend",
+])->middleware("auth");
 
-Route::resource('backend/produk', ProdukController::class, ['as' => 'backend'])
-    ->middleware('auth');
+Route::resource("backend/produk", ProdukController::class, [
+    "as" => "backend",
+])->middleware("auth");
 // Route untuk menambahkan foto
-Route::post('foto-produk/store', [ProdukController::class, 'storeFoto'])->name('backend.foto_produk.store')->middleware('auth');
+Route::post("foto-produk/store", [ProdukController::class, "storeFoto"])
+    ->name("backend.foto_produk.store")
+    ->middleware("auth");
 // Route untuk menghapus foto
-Route::delete('foto-produk/{id}', [ProdukController::class, 'destroyFoto'])->name('backend.foto_produk.destroy')->middleware('auth');
+Route::delete("foto-produk/{id}", [ProdukController::class, "destroyFoto"])
+    ->name("backend.foto_produk.destroy")
+    ->middleware("auth");
 
-Route::get('backend/laporan/formuser', [UserController::class, 'formUser'])->name('backend.laporan.formuser')->middleware('auth');
-Route::post('backend/laporan/cetakuser', [UserController::class, 'cetakUser'])->name('backend.laporan.cetakuser')->middleware('auth');
-Route::get('backend/laporan/formproduk', [ProdukController::class, 'formProduk'])->name('backend.laporan.formproduk')->middleware('auth');
-Route::post('backend/laporan/cetakproduk', [ProdukController::class, 'cetakProduk'])->name('backend.laporan.cetakproduk')->middleware('auth');
+Route::get("backend/laporan/formuser", [UserController::class, "formUser"])
+    ->name("backend.laporan.formuser")
+    ->middleware("auth");
+Route::post("backend/laporan/cetakuser", [UserController::class, "cetakUser"])
+    ->name("backend.laporan.cetakuser")
+    ->middleware("auth");
+Route::get("backend/laporan/formproduk", [
+    ProdukController::class,
+    "formProduk",
+])
+    ->name("backend.laporan.formproduk")
+    ->middleware("auth");
+Route::post("backend/laporan/cetakproduk", [
+    ProdukController::class,
+    "cetakProduk",
+])
+    ->name("backend.laporan.cetakproduk")
+    ->middleware("auth");
 
 // Frontend
-Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
-Route::get('/produk/detail/{id}', [ProdukController::class, 'detail'])->name('produk.detail');
-Route::get('/produk/kategori/{id}', [
+Route::get("/beranda", [BerandaController::class, "index"])->name("beranda");
+Route::get("/produk/detail/{id}", [ProdukController::class, "detail"])->name(
+    "produk.detail",
+);
+Route::get("/produk/kategori/{id}", [
     ProdukController::class,
-    'produkKategori'
-])->name('produk.kategori');
-Route::get('/produk/all', [ProdukController::class, 'produkAll'])->name('produk.all');
+    "produkKategori",
+])->name("produk.kategori");
+Route::get("/produk/all", [ProdukController::class, "produkAll"])->name(
+    "produk.all",
+);
 
+// Group route untuk customer
+Route::middleware("is.customer")->group(function () {
+    // Route untuk menampilkan halaman akun customer
+    Route::get("/customer/akun/{id}", [
+        CustomerController::class,
+        "akun",
+    ])->name("customer.akun");
+    // Route untuk mengupdate data akun customer
+    Route::put("/customer/updateakun/{id}", [
+        CustomerController::class,
+        "updateAkun",
+    ])->name("customer.updateakun");
+});
 
 //API Google
-Route::get('/auth/redirect', [CustomerController::class, 'redirect'])->name('auth.redirect');
-Route::get('/auth/google/callback', [CustomerController::class, 'callback'])->name('auth.callback');
+Route::get("/auth/redirect", [CustomerController::class, "redirect"])->name(
+    "auth.redirect",
+);
+Route::get("/auth/google/callback", [
+    CustomerController::class,
+    "callback",
+])->name("auth.callback");
 // Logout
-Route::post('/logout', [CustomerController::class, 'logout'])->name('logout');
+Route::post("/logout", [CustomerController::class, "logout"])->name("logout");
