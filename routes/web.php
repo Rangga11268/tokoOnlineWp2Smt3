@@ -4,8 +4,10 @@ use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -108,6 +110,14 @@ Route::middleware("is.customer")->group(function () {
         CustomerController::class,
         "updateAkun",
     ])->name("customer.updateakun");
+    // Route untuk menambahkan produk ke keranjang
+    Route::post("add-to-cart/{id}", [
+        OrderController::class,
+        "addToCart",
+    ])->name("order.addToCart");
+    Route::get("cart", [OrderController::class, "viewCart"])->name(
+        "order.cart",
+    );
 });
 
 //API Google
