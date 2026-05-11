@@ -130,7 +130,7 @@ Route::get("/provinces", [RajaOngkirController::class, "getProvinces"]);
 
 Route::get("/cities/{provinceId}", [RajaOngkirController::class, "getCities"]);
 
-// Route::post("/cost", [RajaOngkirController::class, "getCost"]);
+Route::post("/cost", [RajaOngkirController::class, "getCost"])->name('ongkir.cost');
 Route::get('/test-cost', function () {
 
     $response = Http::withHeaders([
@@ -151,6 +151,16 @@ Route::get('/test-cost', function () {
     dd($response->json());
 
 });
+
+Route::get('/test-ongkir', function () {
+    $response = Http::withHeaders([
+        'key' => env('RAJAONGKIR_API_KEY')
+    ])->get(
+        env('RAJAONGKIR_BASE_URL') . '/destination/province'
+    );
+    dd($response->json());
+});
+
 
 //API Google
 Route::get("/auth/redirect", [CustomerController::class, "redirect"])->name(

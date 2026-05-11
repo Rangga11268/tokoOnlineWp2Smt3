@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function(){
             let citySelect =
                 document.getElementById('city');
             citySelect.innerHTML =
-                '<option>Pilih Kota</option>';
+                '<option value="">Pilih Kota</option>';
             data.data.forEach(city => {
                 let option =
                     document.createElement('option');
@@ -83,10 +83,24 @@ document.addEventListener('DOMContentLoaded', function(){
     .addEventListener('submit', function(e){
 
         e.preventDefault();
-        fetch('/cost', {
+
+        const destination = document.getElementById('city').value;
+        const weight = document.getElementById('weight').value;
+        const courier = document.getElementById('courier').value;
+
+        if (!destination || !weight || !courier) {
+            alert('Harap isi semua field!');
+            return;
+        }
+
+        const result = document.getElementById('result');
+        result.innerHTML = '<p>Sedang memuat...</p>';
+
+        fetch('{{ route("ongkir.cost") }}', {
             method:'POST',
             headers:{
                 'Content-Type':'application/json',
+                'Accept':'application/json',
                 'X-CSRF-TOKEN':
                     document.querySelector(
                     'meta[name="csrf-token"]'
@@ -94,32 +108,47 @@ document.addEventListener('DOMContentLoaded', function(){
             },
             body:JSON.stringify({
                 origin: 649,
-                destination:
-                    document.getElementById('city').value,
-                weight:
-                    document.getElementById('weight').value,
-                courier:
-                    document.getElementById('courier').value
+                destination: destination,
+                weight: weight,
+                courier: courier
             })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    throw new Error('Server Error (' + response.status + '): ' + text.substring(0, 100));
+                });
+            }
+            return response.json();
+        })
         .then(data => {
+
+            console.log(data);
+
             let result =
                 document.getElementById('result');
+
             result.innerHTML = '';
-            data.data.forEach(item => {
+
+            let costs = data.data || [];
+
+            costs.forEach(item => {
+
                 let div =
                     document.createElement('div');
 
                 div.innerHTML = `
                     <p>
-                    <b>${item.name}</b><br>
-                    ${item.service}<br>
-                    Rp ${item.cost}<br>
-                    Estimasi: ${item.etd}
+                        <b>${item.name}</b><br>
+                        Layanan : ${item.service}<br>
+                        Harga : Rp ${item.cost}<br>
+                        Estimasi : ${item.etd}
                     </p>
+                    <hr>
                 `;
+
                 result.appendChild(div);
+
             });
 
         });

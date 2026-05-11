@@ -47,18 +47,23 @@ class RajaOngkirController extends Controller
             'courier' => 'required'
         ]);
         try {
-            $response = Http::withHeaders([
-                'key' => env('RAJAONGKIR_API_KEY')
-            ])->post(
-                env('RAJAONGKIR_BASE_URL') .
-                '/calculate/domestic-cost',
-                [
-                    'origin' => $request->origin,
-                    'destination' => $request->destination,
-                    'weight' => $request->weight,
-                    'courier' => $request->courier
-                ]
-            );
+            $response = Http::asForm()
+                ->withHeaders([
+                    'key' => env('RAJAONGKIR_API_KEY')
+                ])
+                ->post(
+                    env('RAJAONGKIR_BASE_URL') .
+                    '/calculate/domestic-cost',
+                    [
+                        'origin' => $request->origin,
+                        'destination' => $request->destination,
+                        'weight' => $request->weight,
+                        'courier' => $request->courier,
+                        'origin_type' => 'city',
+                        'destination_type' => 'city'
+                    ]
+                );
+
             return response()->json($response->json());
         } catch (\Exception $e) {
             return response()->json([
