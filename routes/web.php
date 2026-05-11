@@ -7,6 +7,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RajaOngkirController;
+use Illuminate\Support\Facades\Http;
 
 use Illuminate\Support\Facades\Route;
 
@@ -120,6 +122,36 @@ Route::middleware("is.customer")->group(function () {
     );
 });
 
+Route::get("/cek-ongkir", function () {
+    return view("ongkir");
+});
+
+Route::get("/provinces", [RajaOngkirController::class, "getProvinces"]);
+
+Route::get("/cities/{provinceId}", [RajaOngkirController::class, "getCities"]);
+
+// Route::post("/cost", [RajaOngkirController::class, "getCost"]);
+Route::get('/test-cost', function () {
+
+    $response = Http::withHeaders([
+        'key' => env('RAJAONGKIR_API_KEY')
+    ])->post(
+        env('RAJAONGKIR_BASE_URL') .
+        '/calculate/domestic-cost',
+        [
+            'origin' => 649,
+            'destination' => 588,
+            'weight' => 1000,
+            'courier' => 'jne',
+            'origin_type' => 'city',
+            'destination_type' => 'city'
+        ]
+    );
+
+    dd($response->json());
+
+});
+
 //API Google
 Route::get("/auth/redirect", [CustomerController::class, "redirect"])->name(
     "auth.redirect",
@@ -130,3 +162,18 @@ Route::get("/auth/google/callback", [
 ])->name("auth.callback");
 // Logout
 Route::post("/logout", [CustomerController::class, "logout"])->name("logout");
+
+// Route::get("/list-ongkir", function () {
+//     $response = Http::withHeaders([
+//         "key" => "FbdEAu6ube8721522a7478b7Qk6wSd29",
+//     ])->get("https://api.rajaongkir.com/starter/city?province=5"); //ganti 'province' atau 'city'
+//     dd($response->json());
+// });
+
+Route::get("/list-ongkir", function () {
+    $response = Http::withHeaders([
+        "key" => env("RAJAONGKIR_API_KEY"),
+    ])->get(env("RAJAONGKIR_BASE_URL") . "/destination/city/12");
+
+    dd($response->json());
+});
