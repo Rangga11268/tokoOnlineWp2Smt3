@@ -1,7 +1,10 @@
 @extends('v_layouts.app')
 
 @section('content')
+
+<!-- template -->
 <div class="col-md-12">
+
     <div class="order-summary clearfix">
 
         <div class="section-title">
@@ -9,110 +12,223 @@
             <h3 class="title">Keranjang Belanja</h3>
         </div>
 
-        {{-- Success Message --}}
+        <!-- msgSuccess -->
         @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>{{ session('success') }}</strong>
-        </div>
-        @endif
+            <div class="alert alert-success alert-dismissible" role="alert">
 
-        {{-- Error Message --}}
-        @if(session()->has('error'))
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <strong>{{ session('error') }}</strong>
-        </div>
+                <button type="button"
+                        class="close"
+                        data-dismiss="alert"
+                        aria-label="Close">
+
+                    <span aria-hidden="true">&times;</span>
+
+                </button>
+
+                <strong>{{ session('success') }}</strong>
+
+            </div>
         @endif
+        <!-- end msgSuccess -->
+
+        <!-- msgError -->
+        @if(session()->has('error'))
+
+            <div class="alert alert-danger alert-dismissible" role="alert">
+
+                <button type="button"
+                        class="close"
+                        data-dismiss="alert"
+                        aria-label="Close">
+
+                    <span aria-hidden="true">&times;</span>
+
+                </button>
+
+                <strong>{{ session('error') }}</strong>
+
+            </div>
+
+        @endif
+        <!-- end msgError -->
 
         @if($order && $order->orderItems->count() > 0)
 
-        @php
-            $totalHarga = 0;
-            $totalBerat = 0;
-        @endphp
+            <table class="shopping-cart-table table">
 
-        <table class="shopping-cart-table table">
-            <thead>
-                <tr>
-                    <th>Produk</th>
-                    <th></th>
-                    <th class="text-center">Harga</th>
-                    <th class="text-center">Quantity</th>
-                    <th class="text-center">Total</th>
-                    <th class="text-right">Aksi</th>
-                </tr>
-            </thead>
+                <thead>
 
-            <tbody>
-                @foreach($order->orderItems as $item)
-                @php
-                    $totalHarga += $item->harga * $item->quantity;
-                    $totalBerat += $item->produk->berat * $item->quantity;
-                @endphp
+                    <tr>
+                        <th>Produk</th>
+                        <th></th>
+                        <th class="text-center">Harga</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-center">Total</th>
+                        <th class="text-right"></th>
+                    </tr>
 
-                <tr>
-                    <td class="thumb">
-                        <img src="{{ asset('storage/img-produk/thumb_sm_' . $item->produk->foto) }}" alt="">
-                    </td>
+                </thead>
 
-                    <td class="details">
-                        <a>{{ $item->produk->nama_produk }}</a>
-                        <ul>
-                            <li><span>Berat: {{ $item->produk->berat }} Gram</span></li>
-                            <li><span>Stok: {{ $item->produk->stok }}</span></li>
-                        </ul>
-                    </td>
+                <tbody>
+                    @php
+                        $totalHarga = 0;
+                        $totalBerat = 0;
+                    @endphp
 
-                    <td class="price text-center">
-                        <strong>Rp {{ number_format($item->harga, 0, ',', '.') }}</strong>
-                    </td>
+                    @foreach($order->orderItems as $item)
 
-                    <td class="qty text-center">
-                        <form action="#" method="POST">
-                            @csrf
-                            <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" style="width: 60px;">
-                            <button type="submit" class="btn btn-sm btn-warning mt-1">Update</button>
-                        </form>
-                    </td>
+                        @php
+                            $totalHarga += $item->harga * $item->quantity;
+                            $totalBerat += $item->produk->berat * $item->quantity;
+                        @endphp
 
-                    <td class="total text-center">
-                        <strong class="primary-color">
-                            Rp {{ number_format($item->harga * $item->quantity, 0, ',', '.') }}
-                        </strong>
-                    </td>
+                        <tr>
 
-                    <td class="text-right">
-                        <form action="#" method="POST">
-                            @csrf
-                            <button class="main-btn icon-btn">
-                                <i class="fa fa-close"></i>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+                            <td class="thumb">
 
-        <form action="#" method="POST">
-            @csrf
-            <input type="hidden" name="total_price" value="{{ $totalHarga }}">
-            <input type="hidden" name="total_weight" value="{{ $totalBerat }}">
+                                <img src="{{ asset('storage/img-produk/thumb_sm_' . $item->produk->foto) }}"
+                                     alt="">
+                            </td>
 
-            <div class="pull-right">
-                <button class="primary-btn">Pilih Pengiriman</button>
+                            <td class="details">
+
+                                <a>{{ $item->produk->nama_produk }}</a>
+
+                                <ul>
+                                    <li>
+                                        <span>
+                                            Berat:
+                                            {{ $item->produk->berat }} Gram
+                                        </span>
+                                    </li>
+                                </ul>
+
+                                <ul>
+                                    <li>
+                                        <span>
+                                            Stok:
+                                            {{ $item->produk->stok }}
+                                        </span>
+                                    </li>
+                                </ul>
+
+                            </td>
+
+                            <td class="price text-center">
+
+                                <strong>
+                                    Rp.
+                                    {{ number_format($item->harga, 0, ',', '.') }}
+                                </strong>
+
+                            </td>
+
+                            <td class="qty text-center">
+
+                                <form action="{{ route('order.updateCart', $item->id) }}"
+                                      method="post">
+
+                                    @csrf
+
+                                    <input type="number"
+                                           name="quantity"
+                                           value="{{ $item->quantity }}"
+                                           min="1"
+                                           required
+                                           style="width: 60px;">
+
+                                    <button type="submit"
+                                            class="btn btn-sm btn-warning">
+                                        Update
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+                            <td class="total text-center">
+
+                                <strong class="primary-color">
+                                    Rp.
+                                    {{ number_format($item->harga * $item->quantity, 0, ',', '.') }}
+
+                                </strong>
+
+                            </td>
+
+                            <td class="text-right">
+
+                                <form action="{{ route('order.remove', $item->produk->id) }}"
+                                      method="post">
+
+                                    @csrf
+
+                                    <button class="main-btn icon-btn">
+
+                                        <i class="fa fa-times"></i>
+
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+                        </tr>
+
+                    @endforeach
+
+                </tbody>
+
+            </table>
+
+            <div class="pull-right mb-3">
+
+                <p>
+                    <strong>Total Harga :</strong>
+                    Rp. {{ number_format($totalHarga, 0, ',', '.') }}
+                </p>
+
+                <p>
+                    <strong>Total Berat :</strong>
+                    {{ $totalBerat }} Gram
+                </p>
+
             </div>
-        </form>
+
+            <form action="{{ route('order.selectShipping') }}"
+                  method="post">
+
+                @csrf
+
+                <input type="hidden"
+                       name="total_price"
+                       value="{{ $totalHarga }}">
+
+                <input type="hidden"
+                       name="total_weight"
+                       value="{{ $totalBerat }}">
+
+                <div class="pull-right">
+
+                    <button class="primary-btn">
+
+                        Pilih Pengiriman
+
+                    </button>
+
+                </div>
+
+            </form>
 
         @else
+
             <p>Keranjang belanja kosong.</p>
+
         @endif
 
     </div>
+
 </div>
+<!-- end template -->
+
 @endsection

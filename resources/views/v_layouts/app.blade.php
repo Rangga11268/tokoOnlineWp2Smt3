@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('image/icon_univ_bsi.png') }}">
@@ -71,7 +72,7 @@
                     <ul class="header-btns">
                         <!-- Cart -->
                         <li class="header-cart dropdown default-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                            <a href="{{ Auth::check() ? route('order.cart') : route('auth.redirect') }}" class="dropdown-toggle">
                                 <div class="header-btns-icon">
                                     <i class="fa fa-shopping-cart"></i>
                                 </div>
@@ -91,7 +92,7 @@
                                 </div>
                                 <ul class="custom-menu">
                                     <li><a href="{{ route('customer.akun', ['id' => Auth::user()->id]) }}"><i class="fa fa-user-o"></i> Akun Saya</a></li>
-                                    <li><a href="#"><i class="fa fa-check"></i> History</a></li>
+                                    <li><a href="{{ route('order.history', ['id' => Auth::user()->id]) }}"><i class="fa fa-check"></i> History</a></li>
                                     <li>
                                         <a href="#"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
@@ -427,7 +428,8 @@
     <script src="{{ asset('frontend/js/nouislider.min.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.zoom.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
-
+    <!-- rajaongkir Select2 dan AJAX -->
+    @stack('scripts')
 </body>
 
 </html>

@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RajaOngkirController;
+use App\Http\Controllers\RajaOngkirControllerV2;
 use Illuminate\Support\Facades\Http;
 
 use Illuminate\Support\Facades\Route;
@@ -107,60 +108,106 @@ Route::middleware("is.customer")->group(function () {
         CustomerController::class,
         "akun",
     ])->name("customer.akun");
+
     // Route untuk mengupdate data akun customer
     Route::put("/customer/updateakun/{id}", [
         CustomerController::class,
         "updateAkun",
     ])->name("customer.updateakun");
-    // Route untuk menambahkan produk ke keranjang
+
+    // Route keranjang belanja
     Route::post("add-to-cart/{id}", [
         OrderController::class,
         "addToCart",
     ])->name("order.addToCart");
+
     Route::get("cart", [OrderController::class, "viewCart"])->name(
         "order.cart",
     );
+
+    Route::post("cart/update/{id}", [
+        OrderController::class,
+        "updateCart",
+    ])->name("order.updateCart");
+
+    Route::post("remove/{id}", [
+        OrderController::class,
+        "removeFromCart",
+    ])->name("order.remove");
+
+    // Ongkir
+    Route::post("select-shipping", [
+        OrderController::class,
+        "selectShipping",
+    ])->name("order.selectShipping");
+
+    // Route untuk mengambil data provinsi
+    Route::get("provinces", [OrderController::class, "getProvinces"]);
+
+    // Route untuk mengambil data kota berdasarkan provinsi
+    Route::get("cities/{provinceId}", [OrderController::class, "getCities"]);
+
+    // Route untuk menghitung ongkos kirim
+    Route::post("cost", [OrderController::class, "getCost"])->name(
+        "order.cost",
+    );
+
+    // Route untuk update ongkir
+    Route::post("updateongkir", [OrderController::class, "updateongkir"])->name(
+        "order.updateongkir",
+    );
+    
+    // Pembayaran
+    Route::get(
+        'select-payment',
+        [OrderController::class, 'selectPayment']
+    )->name('order.selectpayment');
+    // History pesanan
+    Route::get(
+        'history',
+        [OrderController::class, 'orderHistory']
+    )->name('order.history');
+    Route::post(
+        'order/complete',
+        [OrderController::class, 'complete']
+    )->name('order.complete');
 });
 
 Route::get("/cek-ongkir", function () {
-    return view("ongkir");
+    return view("cek-ongkir");
 });
+
+Route::get('/ongkir/get-destination', [RajaOngkirControllerV2::class, 'getDestination']);
+Route::post('/ongkir/calculate', [RajaOngkirControllerV2::class, 'calculateOngkir']);
 
 Route::get("/provinces", [RajaOngkirController::class, "getProvinces"]);
 
 Route::get("/cities/{provinceId}", [RajaOngkirController::class, "getCities"]);
 
-Route::post("/cost", [RajaOngkirController::class, "getCost"])->name('ongkir.cost');
-Route::get('/test-cost', function () {
-
+Route::post("/cost", [RajaOngkirController::class, "getCost"])->name(
+    "ongkir.cost",
+);
+Route::get("/test-cost", function () {
     $response = Http::withHeaders([
-        'key' => env('RAJAONGKIR_API_KEY')
-    ])->post(
-        env('RAJAONGKIR_BASE_URL') .
-        '/calculate/domestic-cost',
-        [
-            'origin' => 649,
-            'destination' => 588,
-            'weight' => 1000,
-            'courier' => 'jne',
-            'origin_type' => 'city',
-            'destination_type' => 'city'
-        ]
-    );
+        "key" => env("RAJAONGKIR_API_KEY"),
+    ])->post(env("RAJAONGKIR_BASE_URL") . "/calculate/domestic-cost", [
+        "origin" => 649,
+        "destination" => 588,
+        "weight" => 1000,
+        "courier" => "jne",
+        "origin_type" => "city",
+        "destination_type" => "city",
+    ]);
 
-    dd($response->json());
-
-});
-
-Route::get('/test-ongkir', function () {
-    $response = Http::withHeaders([
-        'key' => env('RAJAONGKIR_API_KEY')
-    ])->get(
-        env('RAJAONGKIR_BASE_URL') . '/destination/province'
-    );
     dd($response->json());
 });
 
+Route::get("/test-ongkir", function () {
+    $response = Http::withHeaders([
+        "key" => env("RAJAONGKIR_API_KEY"),
+    ])->get(env("RAJAONGKIR_BASE_URL") . "/destination/province");
+    dd($response->json());
+});
 
 //API Google
 Route::get("/auth/redirect", [CustomerController::class, "redirect"])->name(
