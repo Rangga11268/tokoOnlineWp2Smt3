@@ -171,7 +171,43 @@ Route::middleware("is.customer")->group(function () {
         'order/complete',
         [OrderController::class, 'complete']
     )->name('order.complete');
+
+    // Route untuk invoice frontend
+    Route::get(
+        'history/invoice/{id}',
+        [OrderController::class, 'invoiceFrontend']
+    )->name('order.invoice');
 });
+
+// Route untuk backend pesanan
+Route::get("backend/pesanan/proses", [OrderController::class, "statusProses"])
+    ->name("pesanan.proses")
+    ->middleware("auth");
+Route::get("backend/pesanan/selesai", [OrderController::class, "statusSelesai"])
+    ->name("pesanan.selesai")
+    ->middleware("auth");
+Route::get("backend/pesanan/detail/{id}", [OrderController::class, "statusDetail"])
+    ->name("pesanan.detail")
+    ->middleware("auth");
+Route::put("backend/pesanan/update/{id}", [OrderController::class, "statusUpdate"])
+    ->name("pesanan.update")
+    ->middleware("auth");
+Route::get("backend/pesanan/invoice/{id}", [OrderController::class, "invoiceBackend"])
+    ->name("pesanan.invoice")
+    ->middleware("auth");
+Route::get("backend/pesanan/formproses", [OrderController::class, "formOrderProses"])
+    ->name("pesanan.formproses")
+    ->middleware("auth");
+Route::post("backend/pesanan/cetakproses", [OrderController::class, "cetakOrderProses"])
+    ->name("pesanan.cetakproses")
+    ->middleware("auth");
+Route::get("backend/pesanan/formselesai", [OrderController::class, "formOrderSelesai"])
+    ->name("pesanan.formselesai")
+    ->middleware("auth");
+Route::post("backend/pesanan/cetakselesai", [OrderController::class, "cetakOrderSelesai"])
+    ->name("pesanan.cetakselesai")
+    ->middleware("auth");
+
 
 Route::get("/cek-ongkir", function () {
     return view("cek-ongkir");

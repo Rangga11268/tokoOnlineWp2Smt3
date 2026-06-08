@@ -45,7 +45,7 @@
                             </td>
                             <td>
                                 <button class="primary-btn" data-toggle="modal" data-target="#orderDetailModal{{ $order->noresi }}">Lihat Detail</button>
-                                <a href="#">
+                                <a href="{{ route('order.invoice', $order->id) }}" target="_blank">
                                     <button type="button" class="primary-btn">Invoice</button>
                                 </a>
                                 

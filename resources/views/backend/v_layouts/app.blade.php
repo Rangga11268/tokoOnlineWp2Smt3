@@ -180,6 +180,21 @@
                                     class="mdi mdi-account-multiple"></i><span class="hide-menu">Customer</span></a>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
+                                href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-cart"></i><span
+                                    class="hide-menu">Data Transaksi </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item"><a href="{{ route('pesanan.proses') }}"
+                                        class="sidebar-link"><i class="mdi mdi-chevron-right"></i><span
+                                            class="hide-menu"> Pesanan Proses </span></a>
+                                </li>
+                                <li class="sidebar-item"><a href="{{ route('pesanan.selesai') }}"
+                                        class="sidebar-link">
+                                        <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> Pesanan Selesai
+                                        </span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
                                 href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-shopping"></i><span
                                     class="hide-menu">Data Produk </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
@@ -205,8 +220,17 @@
                                         class="sidebar-link"><i class="mdi mdi-chevron-right"></i><span
                                             class="hide-menu"> Produk
                                         </span></a></li>
+                                <li class="sidebar-item"><a href="{{ route('pesanan.formproses') }}"
+                                        class="sidebar-link"><i class="mdi mdi-chevron-right"></i><span
+                                            class="hide-menu"> Pesanan Proses
+                                        </span></a></li>
+                                <li class="sidebar-item"><a href="{{ route('pesanan.formselesai') }}"
+                                        class="sidebar-link"><i class="mdi mdi-chevron-right"></i><span
+                                            class="hide-menu"> Pesanan Selesai
+                                        </span></a></li>
                             </ul>
                         </li>
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
